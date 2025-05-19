@@ -31,11 +31,7 @@ namespace WebBanHang.Controllers
         public IActionResult Add()
         {
             //truyền danh sách thể loại cho View để sinh ra điều khiển DropDownList
-            ViewBag.CategoryList = _db.Categories.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            });
+            ViewBag.DSSP = _db.Categories.Select(x => new SelectListItem{Value = x.Id.ToString(),Text = x.Name});
             return View();
         }
         //Xử lý thêm sản phẩm

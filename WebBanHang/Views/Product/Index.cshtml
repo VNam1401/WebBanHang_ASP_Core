@@ -1,5 +1,7 @@
 ﻿@model List<Product>
 
+<partial name="_ThongBao"/>
+
 <div class="row mb-4">
     <div class="col-md-6">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -38,7 +40,7 @@
                     <a asp-action="Update" asp-route-id="@x.Id" class="btn btn-success">
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
-                    <a asp-action="Delete" asp-route-id="@x.Id" class="btn btn-danger">
+                    <a  asp-route-id="@x.Id" class="btn btn-danger">
                         <i class="bi bi-trash"></i> Delete
                     </a>
                 </td>

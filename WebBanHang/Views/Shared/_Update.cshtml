@@ -1,0 +1,23 @@
+﻿@model Product
+<img src="/@Model.ImageUrl" style="width:300px" id="previewImage" />
+<div class="form-group pb-2">
+    <label>Product Image</label>
+    <input asp-for="ImageUrl" type="file" class="form-control" />
+</div>
+@section Scripts{
+    <script>
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = document.getElementById("previewImage");
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+}
