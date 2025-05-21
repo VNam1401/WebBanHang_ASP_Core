@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Services.WebApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,13 +17,26 @@ namespace WebBanHang.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _hosting;
+        private const int PageSize = 5;
+
         public ProductController(ApplicationDbContext db, IWebHostEnvironment hosting)
         {
             _db = db;
             _hosting = hosting;
         }
-        //Hiển thị danh sách sản phẩm
-        public IActionResult Index()
+       //trả về giao diện sản phẩm có phân trang
+       public IActionResult Index(int page = 1)
+        {
+            var pagesize = 5;
+            var currentPage = page;
+            var dsSanPham = _db.Products.Include(x => x.Category).ToList();
+            //Truyền dữ liệu cho view
+            ViewBag.PageSum = Math.Ceiling((double)dsSanPham.Count / pagesize);
+            ViewBag.CurrenPage = currentPage;
+            return View(dsSanPham.Skip((currentPage - 1) * pagesize).Take(pagesize).ToList());
+        }
+    //Hiển thị danh sách sản phẩm
+    public IActionResult Index()
         {
             var productList = _db.Products.Include(x => x.Category).ToList();
             return View(productList);
