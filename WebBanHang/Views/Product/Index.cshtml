@@ -50,17 +50,17 @@
 <!-- Hiển thị điều khiển phân trang -->
 <div>
     <ul class="pagination justify-content-center">
-        <li class="page-item @(ViewBag.CurrenPage==1?"disabled":"")">
+        <li class="page-item @(ViewBag.CurrentPage==1? "disabled":"")">
             <a class="page-link" asp-action="Index" asp-route-page="1">&laquo;</a>
         </li>
-        @for (var i=1; i <= ViewBag.PageSum; i++)
-            {
-                <li class="page-item @(ViewBag.currentPage==i ? "active":"")">
-                    <a class="page-link" asp-action="Index"  asp-route-page="@i">@i</a>
-                </li>
-            }
-    <li class="page-item @(ViewBag.CurrentPage== ViewBag.PageSum? "disabled":"")">
-        <a class="page-link" asp-action="Index" asp-route-page="@ViewBag.PageSum">&raquo;</a>
-    </li>
+        @for (var i = 1; i <= ViewBag.PageSum; i++)
+        {
+            <li class="page-item @(ViewBag.CurrentPage==i? "active":"")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+            </li>
+        }
+        <li class="page-item @(ViewBag.CurrentPage==ViewBag.PageSum? "disabled":"")">
+            <a class="page-link" asp-action="Index" asp-route-page="@ViewBag.PageSum">&raquo;</a>
+        </li>
     </ul>
 </div>

@@ -17,35 +17,30 @@ namespace WebBanHang.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _hosting;
-        private const int PageSize = 5;
-
         public ProductController(ApplicationDbContext db, IWebHostEnvironment hosting)
         {
             _db = db;
             _hosting = hosting;
         }
-       //trả về giao diện sản phẩm có phân trang
-       public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1)
         {
-            var pagesize = 5;
+            int pageSize = 4;
             var currentPage = page;
             var dsSanPham = _db.Products.Include(x => x.Category).ToList();
-            //Truyền dữ liệu cho view
-            ViewBag.PageSum = Math.Ceiling((double)dsSanPham.Count / pagesize);
-            ViewBag.CurrenPage = currentPage;
-            return View(dsSanPham.Skip((currentPage - 1) * pagesize).Take(pagesize).ToList());
-        }
-    //Hiển thị danh sách sản phẩm
-    public IActionResult Index()
-        {
-            var productList = _db.Products.Include(x => x.Category).ToList();
-            return View(productList);
+            //Truyen du lieu cho View
+            ViewBag.PageSum = Math.Ceiling((double)dsSanPham.Count / pageSize);
+            ViewBag.CurrentPage = currentPage;
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("ProductPartial", dsSanPham.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
+            }
+            return View(dsSanPham.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
         }
         //Hiển thị form thêm sản phẩm mới
         public IActionResult Add()
         {
             //truyền danh sách thể loại cho View để sinh ra điều khiển DropDownList
-            ViewBag.DSSP = _db.Categories.Select(x => new SelectListItem{Value = x.Id.ToString(),Text = x.Name});
+            ViewBag.DSSP = _db.Categories.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name });
             return View();
         }
         //Xử lý thêm sản phẩm
@@ -72,7 +67,6 @@ namespace WebBanHang.Controllers
             });
             return View();
         }
-        //Hiển thị form cập nhật sản phẩm
         public IActionResult Update(int id)
         {
             var product = _db.Products.Find(id);
@@ -145,7 +139,6 @@ namespace WebBanHang.Controllers
             return @"images/products/" + filename;
         }
 
-        //Hiển thị form xác nhận xóa sản phẩm
         public IActionResult Delete(int id)
         {
             var product = _db.Products.Find(id);
