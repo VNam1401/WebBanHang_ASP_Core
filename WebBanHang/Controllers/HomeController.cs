@@ -22,9 +22,11 @@ namespace WebBanHang.Controllers
 
         public IActionResult Index()
         {
+
             var pagesize = 4;
             var dsSanPham = _db.Products.Include(x => x.Category).ToList();
             return View(dsSanPham.Skip(0).Take(pagesize).ToList());
+
         }
         public IActionResult LoadMore(int page = 1)
         {

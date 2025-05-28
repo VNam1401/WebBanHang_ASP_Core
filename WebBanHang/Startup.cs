@@ -32,6 +32,13 @@ namespace WebBanHang
             services.AddRazorPages();
 
             services.AddScoped<IEmailSender,EmailSender>();//Thêm dịch vụ SeedData để khởi tạo dữ liệu mẫu
+
+            services.ConfigureApplicationCookie(ops =>
+            {
+                ops.LoginPath = "/Identity/Account/Login";
+                ops.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                ops.LogoutPath = "//Identity/Account/Logout";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

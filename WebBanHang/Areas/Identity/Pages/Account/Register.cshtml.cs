@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WebBanHang.Models;
 
+
 namespace WebBanHang.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -73,7 +74,7 @@ namespace WebBanHang.Areas.Identity.Pages.Account
             public string role { get; set; } //thuộc tính để lưu vai trò của người dùng
             public IEnumerable<SelectListItem> RoleList { get; set; } //danh sách các vai trò để hiển thị trong dropdown list
         }
-
+       
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -102,14 +103,21 @@ namespace WebBanHang.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
-                Fullname=Input.Fullname,Birhday=Input.Birhday};//them các thuộc tính fullname và birthday vào đối tượng user
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,Fullname=Input.Fullname,Birhday = Input.Birhday};//them các thuộc tính fullname và birthday vào đối tượng user
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                //add role cho User
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    if (!string.IsNullOrEmpty(Input.role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.Role_Cust);
+                    }
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
