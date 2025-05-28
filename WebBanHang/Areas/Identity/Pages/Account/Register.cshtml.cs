@@ -1,12 +1,10 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +15,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WebBanHang.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WebBanHang.Areas.Identity.Pages.Account
 {
@@ -28,19 +25,22 @@ namespace WebBanHang.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+
         //them RoleManager để quản lý các vai trò
         private readonly RoleManager<IdentityRole> _roleManager;
+
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -78,18 +78,18 @@ namespace WebBanHang.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             //chenh RoleManager để quản lý các vai trò
-            if (!_roleManager.RoleExistsAsync(SD.Role_Cust).GetAwaiter().GetResult()) { 
-            _roleManager.CreateAsync(new IdentityRole(SD.Role_Cust)).GetAwaiter().GetResult(); //Tạo vai trò Customer
-            _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult(); //Tạo vai trò Admin
-            _roleManager.CreateAsync(new IdentityRole(SD.Role_Empl)).GetAwaiter().GetResult(); //Tạo vai trò Employee
+            if (!_roleManager.RoleExistsAsync(SD.Role_Cust).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Cust)).GetAwaiter().GetResult(); //Tạo vai trò Customer
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult(); //Tạo vai trò Admin
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Empl)).GetAwaiter().GetResult(); //Tạo vai trò Employee
             }
             //lay role từ RoleManager và gán vào danh sách Roles trong InputModel
             Input = new InputModel
             {
-                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => SelectListItem{Text = i,Value=i })
-            };  
+                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i =>new SelectListItem{ Text = i, Value = i })
+            };
             // trang thái đăng nhập của người dùng
             ReturnUrl = returnUrl;
             //lấy danh sách các phương thức xác thực bên ngoài (ví dụ: Google, Facebook)
@@ -102,8 +102,9 @@ namespace WebBanHang.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email 
-                ,Fullname=Input.Fullname,Birhday=Input.Birhday};//them các thuộc tính fullname và birthday vào đối tượng user
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,
+                Fullname=Input.Fullname,Birhday=Input.Birhday};//them các thuộc tính fullname và birthday vào đối tượng user
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

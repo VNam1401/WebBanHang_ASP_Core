@@ -30,6 +30,7 @@ namespace WebBanHang
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=MSSQL"));
             services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();//Khai báo service
             services.AddRazorPages();
+
             services.AddScoped<IEmailSender,EmailSender>();//Thêm dịch vụ SeedData để khởi tạo dữ liệu mẫu
         }
 
