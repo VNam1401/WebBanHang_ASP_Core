@@ -1,6 +1,6 @@
 ﻿@model List<Product>
 
-
+@*<partial name="_ThongBao" />*@
 <div class="row mb-4">
     <div class="col-md-6">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -12,56 +12,18 @@
         </a>
     </div>
 </div>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Image</th>
-            <th>Action </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in Model)
-        {
-            <tr>
-                <td>@x.Name</td>
-                <td>@x.Price</td>
-                <td>@x.Category.Name</td>
-                <td>
-                    @if (x.ImageUrl != null)
-                    {
-                        <img src="@x.ImageUrl" style="width:100px" />
-                    }
-                </td>
-                <td>
-                    <a asp-action="Update" asp-route-id="@x.Id" class="btn btn-success">
-                        <i class="bi bi-pencil-square"></i> Edit
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@x.Id" class="btn btn-danger">
-                        <i class="bi bi-trash"></i> Delete
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<!-- Hiển thị điều khiển phân trang -->
-<div>
-    <ul class="pagination justify-content-center">
-        <li class="page-item @(ViewBag.CurrentPage==1? "disabled":"")">
-            <a class="page-link" asp-action="Index" asp-route-page="1">&laquo;</a>
-        </li>
-        @for (var i = 1; i <= ViewBag.PageSum; i++)
-        {
-            <li class="page-item @(ViewBag.CurrentPage==i? "active":"")">
-                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-            </li>
-        }
-        <li class="page-item @(ViewBag.CurrentPage==ViewBag.PageSum? "disabled":"")">
-            <a class="page-link" asp-action="Index" asp-route-page="@ViewBag.PageSum">&raquo;</a>
-        </li>
-    </ul>
+<div class="products-container">
+    <partial name="_ProductPartial" model="Model" />
 </div>
 
+@section Scripts{
+    <script>
+    $(document).on("click", ".pagination a", function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $.get(url, function (data) {
+            $(".products-container").html(data);
+        });
+    });
+    </script>
+}

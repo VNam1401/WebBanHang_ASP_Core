@@ -26,7 +26,6 @@ namespace WebBanHang.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
         //them RoleManager để quản lý các vai trò
         private readonly RoleManager<IdentityRole> _roleManager;
 
@@ -87,7 +86,7 @@ namespace WebBanHang.Areas.Identity.Pages.Account
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Empl)).GetAwaiter().GetResult(); //Tạo vai trò Employee
             }
             //lay role từ RoleManager và gán vào danh sách Roles trong InputModel
-            Input = new InputModel
+            Input = new InputModel()
             {
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i =>new SelectListItem{ Text = i, Value = i })
             };
