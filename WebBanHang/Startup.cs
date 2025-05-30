@@ -59,16 +59,22 @@ namespace WebBanHang
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();//add 
 
-            app.UseAuthentication();//Xác thực cấu hình
+            //Xác thực cấu hình
 
             app.UseEndpoints(endpoints =>
             {
+                //Khai báo areas Phân vùng
+                endpoints.MapControllerRoute(
+                    name: "area",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
                 endpoints.MapRazorPages();
             });

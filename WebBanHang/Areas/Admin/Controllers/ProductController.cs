@@ -12,8 +12,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebBanHang.Models;
 
-namespace WebBanHang.Controllers
+//Tạo đường dẫn
+namespace WebBanHang.Areas.Admin.Controllers
 {
+    //THêm area
+    [Area("Admin")]
     [Authorize(Roles =SD.Role_Admin)]
     public class ProductController : Controller
     {
