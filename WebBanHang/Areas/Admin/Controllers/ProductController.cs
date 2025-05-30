@@ -37,7 +37,7 @@ namespace WebBanHang.Areas.Admin.Controllers
             ViewBag.CurrentPage = currentPage;
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                return PartialView("ProductPartial", dsSanPham.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
+                return PartialView("_ProductPartial", dsSanPham.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
             }
             return View(dsSanPham.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
         }
