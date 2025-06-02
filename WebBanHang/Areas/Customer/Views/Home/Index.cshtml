@@ -21,7 +21,7 @@
         let CurrentPage = 2;
         $("#btnLoadMore").click(function () {
             $.ajax({
-                url: "/Home/LoadMore",
+                url: "Customer/Home/LoadMore",
                 data: { page: CurrentPage },
                 success: function (data) {
                     if ($.trim(data) === '')

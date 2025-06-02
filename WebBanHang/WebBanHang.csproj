@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\Contact\**" />
+    <Compile Remove="Areas\Admin\Views\New\**" />
+    <Content Remove="Areas\Admin\Views\Contact\**" />
+    <Content Remove="Areas\Admin\Views\New\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Contact\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\New\**" />
+    <None Remove="Areas\Admin\Views\Contact\**" />
+    <None Remove="Areas\Admin\Views\New\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.31.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.17" />
@@ -20,10 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Customer\Data\" />
+    <Folder Include="Areas\Employee\Controllers\" />
+    <Folder Include="Areas\Employee\Data\" />
+    <Folder Include="Areas\Employee\Models\" />
+    <Folder Include="Areas\Employee\Views\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Contact\" />
-    <Folder Include="Areas\Admin\Views\New\" />
+    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 

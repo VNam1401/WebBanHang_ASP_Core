@@ -8,12 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebBanHang.Models;
 
-namespace WebBanHang.Controllers
+namespace WebBanHang.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        ApplicationDbContext _db;
+        private ApplicationDbContext _db;
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
@@ -22,17 +23,15 @@ namespace WebBanHang.Controllers
 
         public IActionResult Index()
         {
-
-            var pagesize = 4;
+            var pageSize = 3;
             var dsSanPham = _db.Products.Include(x => x.Category).ToList();
-            return View(dsSanPham.Skip(0).Take(pagesize).ToList());
-
+            return View(dsSanPham.Skip(0).Take(pageSize).ToList());
         }
         public IActionResult LoadMore(int page = 1)
         {
-            int pageSize = 4;
-            var dsSanPham = _db.Products.Include(x=> x.Category).ToList();
-            return PartialView("_ProductPartial",dsSanPham.Skip((page-1)*pageSize).Take(pageSize).ToList());
+            int pageSize = 3;
+            var dsSanPham = _db.Products.Include(x => x.Category).ToList();
+            return PartialView("ProductPartial", dsSanPham.Skip((page - 1) * pageSize).Take(pageSize).ToList());
         }
         public IActionResult Privacy()
         {
