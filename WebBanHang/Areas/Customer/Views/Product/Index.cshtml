@@ -6,12 +6,11 @@
         <ul class="list-group">
             @foreach (var c in (List<CategoryNew>)ViewBag.DSLOAI)
             {
-                <a asp-action="Index" asp-route-catid="@c.Id"class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">@c.Name
-                    <span
-                           class="badge bg-primary rounded-pill">@c.TotalProduct
-                    </span>
-                    </a>
-             }
+                <a asp-action="Index" asp-route-catid="@c.Id" class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
+                    @c.Name
+                    <span class="badge bg-primary rounded-pill">@c.TotalProduct</span>
+                </a>
+            }
         </ul>
     </div>
 
@@ -21,28 +20,33 @@
             @foreach (var p in Model)
             {
                 <div class="col-md-4 mb-4">
-        <h5 class="card-header">@p.Name</h5>
-        <div class="card-body">
-            <h6 class="card-title">Price: @string.Format("{0:#,#00} USD", p.Price)</h6>
-        </div>
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">@p.Name</h5>
+                        </div>
 
-        @if (!string.IsNullOrEmpty(p.ImageUrl))
-        {
-            <img src="/@p.ImageUrl" class="img-fluid" />
-            }
-                else
-                {
-                    <div class="text-center py-3">
-                   <span class="text-muted">No image available</span>
+                        @if (!string.IsNullOrEmpty(p.ImageUrl))
+                        {
+                            <img src="/@p.ImageUrl" class="card-img-top" alt="@p.Name" style="height: 200px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                                <span class="text-muted">No image available</span>
+                            </div>
+                        }
+
+                        <div class="card-body">
+                            <h6 class="card-title">Price: @string.Format("{0:#,#00} USD", p.Price)</h6>
+                        </div>
+
+                        <div class="card-footer bg-transparent d-flex justify-content-between">
+                            <a href="#" class="btn btn-outline-dark btn-sm">Detail</a>
+                            <a href="#" class="btn btn-outline-info btn-sm">Add To Cart</a>
+                        </div>
                     </div>
-                    }
-
-        <div class="card-footer text-muted d-flex justify-content-between">
-            <a href="#" class="btn btn-outline-dark btn-sm">Detail</a>
-            <a href="#" class="btn btn-outline-info btn-sm">Add To Cart</a>
-        </div>
-    </div>
-    }
+                </div>
+            }
         </div>
     </div>
 </div>

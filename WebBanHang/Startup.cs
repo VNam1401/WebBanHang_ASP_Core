@@ -67,6 +67,10 @@ namespace WebBanHang
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "Admin",
+                pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
+
                 //Khai báo areas Phân vùng
                 endpoints.MapControllerRoute(
                     name: "area",
