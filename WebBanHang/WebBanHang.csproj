@@ -5,14 +5,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Models\**" />
     <Compile Remove="Areas\Admin\Views\Contact\**" />
     <Compile Remove="Areas\Admin\Views\New\**" />
+    <Compile Remove="Areas\Customer\Data\**" />
+    <Compile Remove="Areas\Employee\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Areas\Admin\Views\Contact\**" />
     <Content Remove="Areas\Admin\Views\New\**" />
+    <Content Remove="Areas\Customer\Data\**" />
+    <Content Remove="Areas\Employee\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Areas\Admin\Views\Contact\**" />
     <EmbeddedResource Remove="Areas\Admin\Views\New\**" />
+    <EmbeddedResource Remove="Areas\Customer\Data\**" />
+    <EmbeddedResource Remove="Areas\Employee\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Models\**" />
     <None Remove="Areas\Admin\Views\Contact\**" />
     <None Remove="Areas\Admin\Views\New\**" />
+    <None Remove="Areas\Customer\Data\**" />
+    <None Remove="Areas\Employee\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,13 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Customer\Data\" />
-    <Folder Include="Areas\Employee\Controllers\" />
-    <Folder Include="Areas\Employee\Data\" />
-    <Folder Include="Areas\Employee\Models\" />
-    <Folder Include="Areas\Employee\Views\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 
