@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebBanHang.Areas.Customer.Models
+namespace WebBanHang.Models
 {
     public class Order
     {

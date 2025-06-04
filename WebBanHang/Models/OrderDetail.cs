@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebBanHang.Models;
 
-namespace WebBanHang.Areas.Customer.Models
+namespace WebBanHang.Models
 {
     public class OrderDetail
     {
