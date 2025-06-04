@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
                                         <div class="">
-                                            <input type="number" name="qty" value="@item.Quantity" class="form-control" />
+                                            <input type="number" name="qty" value="@item.Quantity" class="form-control" min="1" />
                                         </div>
                                         <div class="">
                                             <text class="h6">@string.Format("${0:#,##0}", item.Product.Price)</text> <br />
