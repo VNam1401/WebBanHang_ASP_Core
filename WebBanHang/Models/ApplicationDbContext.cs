@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebBanHang.Areas.Customer.Models;
 
 namespace WebBanHang.Models
 {
@@ -16,6 +17,9 @@ namespace WebBanHang.Models
         }
         public DbSet<Category> Categories { set; get; }
         public DbSet<Product> Products { set; get; }
+        //thêm order
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);//THêm khoá chính
