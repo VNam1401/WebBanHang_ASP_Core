@@ -42,7 +42,7 @@
 
                         <div class="card-footer bg-transparent d-flex justify-content-between">
                             <a href="#" class="btn btn-outline-dark btn-sm">Detail</a>
-                            <a href="#" class="btn btn-outline-info btn-sm">Add To Cart</a>
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@p.Id" class="btn btn-outline-info btn-sm">Add To Cart</a>
                         </div>
                     </div>
                 </div>
