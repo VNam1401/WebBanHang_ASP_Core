@@ -31,6 +31,9 @@ namespace WebBanHang
             services.AddIdentity<ApplicationUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();//Khai báo service
             services.AddRazorPages();
 
+            //giỏ hàng
+            services.AddSession();
+
             services.AddScoped<IEmailSender,EmailSender>();//Thêm dịch vụ SeedData để khởi tạo dữ liệu mẫu
 
             services.ConfigureApplicationCookie(ops =>
@@ -60,10 +63,11 @@ namespace WebBanHang
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseAuthentication();
+            app.UseAuthentication();//Xác thực cấu hình
             app.UseAuthorization();//add 
 
-            //Xác thực cấu hình
+            //giỏ hàng
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

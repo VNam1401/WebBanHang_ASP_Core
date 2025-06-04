@@ -25,13 +25,13 @@ namespace WebBanHang.Areas.Customer.Controllers
         public IActionResult Index()
         {
             var pageSize = 4;
-            var dsSanPham = _db.Products.Include(x => x.Category).ToList();
+            var dsSanPham = _db.Products.Include(x => x.Category).OrderByDescending(x=>x.Category).ToList();//OrderByDescending thuộc tính giảm dần
             return View(dsSanPham.Skip(0).Take(pageSize).ToList());
         }
         public IActionResult LoadMore(int page = 1)
         {
             int pageSize = 4;
-            var dsSanPham = _db.Products.Include(x => x.Category).ToList();
+            var dsSanPham = _db.Products.Include(x => x.Category).OrderByDescending(x=>x.Category).ToList();//OrderByDescending thuộc tính giảm dần
             return PartialView("_ProductPartial", dsSanPham.Skip((page - 1) * pageSize).Take(pageSize).ToList());
         }
         public IActionResult Privacy()
