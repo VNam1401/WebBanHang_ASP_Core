@@ -68,7 +68,7 @@
                             <p class="mb-0 fw-bold">@string.Format("${0:#,##0}", Model.Total)</p>
                         </div>
                         <div>
-                            <a href="#" class="btn btn-success w-100 shadow-0 mb-2">Make Purchase</a>
+                            <a asp-action="ProcessOrder" asp-controller="Order" class="btn btn-success w-100 shadow-0 mb-2">Make Purchase</a>
                             <a href="/customer/home/index" class="btn btn-light w-100 border">Back to Shop</a>
                         </div>
                     </div>
